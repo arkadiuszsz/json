@@ -28,11 +28,10 @@ static void test_str(void)
     json_size size = strlen(buf);
 
     struct json_iter iter;
-    iter = json_make((json_char*)buf, size);
+    iter = json_begin((json_char*)buf, size);
 
     json_pair pair;
     iter = json_parse(&iter, pair);
-
     assert(!iter.err);
     assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
     assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"value"));
@@ -44,11 +43,10 @@ static void test_num(void)
     const json_size size = strlen(buf);
 
     struct json_iter iter;
-    iter = json_make((json_char*)buf, size);
+    iter = json_begin((json_char*)buf, size);
 
     json_pair pair;
     iter = json_parse(&iter, pair);
-
     assert(!iter.err);
     assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
     assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"1234"));
@@ -60,11 +58,10 @@ static void test_utf8(void)
     const json_size size = strlen(buf);
 
     struct json_iter iter;
-    iter = json_make((json_char*)buf, size);
+    iter = json_begin((json_char*)buf, size);
 
     json_pair pair;
     iter = json_parse(&iter, pair);
-
     assert(!iter.err);
     assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
     assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"$¢€𤪤"));

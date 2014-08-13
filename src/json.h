@@ -35,7 +35,7 @@ struct json_iter {
 };
 
 /* parser */
-struct json_iter json_make(const json_char*, json_size);
+struct json_iter json_begin(const json_char*, json_size);
 struct json_iter json_read(const struct json_iter*, struct json_token*);
 struct json_iter json_parse(const struct json_iter*, json_pair);
 #define json_err(it) ((iter)->err)

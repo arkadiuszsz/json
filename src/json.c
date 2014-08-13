@@ -9,7 +9,7 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Winitializer-overrides"
 
-struct json_iter json_make(const json_char* str, json_size len)
+struct json_iter json_begin(const json_char* str, json_size len)
 {
     struct json_iter iter;
     memset(&iter, 0, sizeof iter);
