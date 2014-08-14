@@ -107,7 +107,7 @@ struct json_iter json_read(const struct json_iter* prev,
         iter.src = NULL;
         iter.len = 0;
         if (obj->str)
-            obj->len = cur - obj->str;
+            obj->len = (cur-1) - obj->str;
         return iter;
     }
 
@@ -117,11 +117,11 @@ l_fail:
 
 l_up:
     if (iter.depth++ == 1)
-        obj->str = cur + 1;
+        obj->str = cur;
     goto l_loop;
 
 l_down:
-    if (iter.depth-- == 1) {
+    if (--iter.depth == 1) {
         obj->len = cur - obj->str;
         goto l_yield;
     }
@@ -156,11 +156,13 @@ l_bare:
     goto l_loop;
 
 l_unbare:
+    iter.go = go_struct;
     if (iter.depth == 1) {
         obj->len = cur - obj->str;
-        goto l_yield;
+        iter.src = cur;
+        iter.len = len;
+        return iter;
     }
-    iter.go = go_struct;
     goto *iter.go[*cur];
 
 l_utf8_2:
