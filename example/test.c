@@ -24,8 +24,8 @@ int json_cmp(struct json_token* tok, const json_char* str)
 
 static void test_str(void)
 {
-    const char *buf = "{\"name\"=\"value\"}";
-    json_size size = strlen(buf);
+    const json_char *buf = (json_char*)"{\"name\"=\"value\"}";
+    json_size size = strlen((const char*)buf);
 
     struct json_iter iter;
     iter = json_begin((json_char*)buf, size);
@@ -39,8 +39,8 @@ static void test_str(void)
 
 static void test_num(void)
 {
-    const char *buf = "{\"name\"=1234}";
-    const json_size size = strlen(buf);
+    const json_char *buf = (const json_char*)"{\"name\"=1234}";
+    const json_size size = strlen((const char*)buf);
 
     struct json_iter iter;
     iter = json_begin((json_char*)buf, size);
@@ -54,8 +54,8 @@ static void test_num(void)
 
 static void test_utf8(void)
 {
-    const json_char *buf = "{\"name\"=\"$¢€𤪤\"}";
-    const json_size size = strlen(buf);
+    const json_char *buf = (const json_char*)"{\"name\"=\"$¢€𤪤\"}";
+    const json_size size = strlen((const char*)buf);
 
     struct json_iter iter;
     iter = json_begin((json_char*)buf, size);

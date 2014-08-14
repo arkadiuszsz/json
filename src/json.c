@@ -27,9 +27,9 @@ struct json_iter json_read(const struct json_iter* prev,
         ['\r']      = &&l_loop,
         ['\n']      = &&l_loop,
         ['"']       = &&l_qup,
-        [':']       = &&l_yield,
-        ['=']       = &&l_yield,
-        [',']       = &&l_yield,
+        [':']       = &&l_loop,
+        ['=']       = &&l_loop,
+        [',']       = &&l_loop,
         ['[']       = &&l_up,
         [']']       = &&l_down,
         ['{']       = &&l_up,
@@ -52,6 +52,7 @@ struct json_iter json_read(const struct json_iter* prev,
     };
     static const void *go_string[] = {
         [0 ... 31]    = &&l_fail,
+        [32 ... 126]  = &&l_loop,
         [127]         = &&l_fail,
         ['\\']        = &&l_esc,
         ['"']         = &&l_qdown,
@@ -116,28 +117,28 @@ l_fail:
 
 l_up:
     if (iter.depth++ == 1)
-        iter.src = cur + 1;
+        obj->str = cur + 1;
     goto l_loop;
 
 l_down:
-    if (--iter.depth == 1) {
-        iter.len = obj->str - cur;
+    if (iter.depth-- == 1) {
+        obj->len = cur - obj->str;
         goto l_yield;
     }
     goto l_loop;
 
 l_qup:
-    if (iter.depth == 1)
-        iter.src = cur + 1;
     iter.go = go_string;
+    if (iter.depth == 1)
+        obj->str = cur + 1;
     goto l_loop;
 
 l_qdown:
+    iter.go = go_struct;
     if (iter.depth == 1) {
-        iter.len = obj->str - cur - 1;
+        obj->len = cur - obj->str;
         goto l_yield;
     }
-    iter.go = go_struct;
     goto l_loop;
 
 l_esc:
@@ -149,10 +150,16 @@ l_unesc:
     goto l_loop;
 
 l_bare:
+    if (iter.depth == 1)
+        obj->str = cur;
     iter.go = go_bare;
     goto l_loop;
 
 l_unbare:
+    if (iter.depth == 1) {
+        obj->len = cur - obj->str;
+        goto l_yield;
+    }
     iter.go = go_struct;
     goto *iter.go[*cur];
 
