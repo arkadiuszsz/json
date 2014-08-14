@@ -187,10 +187,10 @@ l_yield:
 struct json_iter json_parse(const struct json_iter* it, json_pair p)
 {
     struct json_iter next;
-    next = json_parse(it, &p[JSON_NAME]);
+    next = json_read(it, &p[JSON_NAME]);
     if (next.err)
         return next;
-    return json_parse(&next, &p[JSON_VALUE]);
+    return json_read(&next, &p[JSON_VALUE]);
 }
 
 json_char *json_dup(struct json_token* tok, void*(*alloc)(size_t))
