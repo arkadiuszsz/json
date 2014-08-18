@@ -52,9 +52,9 @@ def main():
             "lpath"     : " ".join(map(lambda x: "-L " + x, LIB_PATH)),
             "libs"      : " ".join(map(lambda x: "-l " + x, DLIBS)),
         })
-    print "compiling..."
+    print("compiling...")
     os.system(cmd)
-    print "done!"
+    print("done!")
 
 if __name__ == "__main__":
     main()
