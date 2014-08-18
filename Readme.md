@@ -17,8 +17,8 @@ and pair(key,value), but deeper levels can be reached with the parsed output.
 ## Prerequisites
 To build and use the JSON parser you only need to drop the two
 Source files into your project and offer following environment:
-    - GCC or clang compiler
-    - standard library
+    - GCC or clang compiler 
+    - standard library 
 
 # License
     (The MIT License)
