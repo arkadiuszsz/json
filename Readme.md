@@ -1,6 +1,6 @@
 # JSON
-A one-pass JSON parser with no memory overhead over the raw bytes with no
-memory copying. The implementation is very simple but should parse any valid
+A one-pass JSON parser with no memory overhead with no memory copying or allocation.
+The implementation is very simple but should parse any valid
 json input, but trades validation for efficency.
 One pass of the parser only reads up to the first depth of object value
 and pair(key,value), but deeper levels can be reached with the parsed output.
