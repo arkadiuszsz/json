@@ -38,7 +38,6 @@ struct json_iter {
 struct json_iter json_begin(const json_char*, json_size);
 struct json_iter json_read(const struct json_iter*, struct json_token*);
 struct json_iter json_parse(const struct json_iter*, json_pair);
-#define json_err(it) ((iter)->err)
 
 /* util */
 json_char *json_dup(struct json_token*, void*(*alloc)(size_t));
