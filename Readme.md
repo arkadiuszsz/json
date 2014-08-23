@@ -21,7 +21,7 @@ build environment:
 * GCC or clang compiler
 * Standard C library
 
-## Ussage
+## Usage
 First the json parser iterator needs to be initialized using
 the `json_begin` function which takes a utf8 string + length in bytes
 and returns the iterator.
@@ -31,7 +31,7 @@ struct json_iter iter;
 iter = json_begin(json, len);
 ```
 To further parse the json file there are two functions.
-First the `json_read` function which read in the next token
+First the `json_read` function which reads in the next token
 and returns the next iterator. `json_read` is useful for reading
 array values.
 
@@ -39,9 +39,8 @@ array values.
 struct json_token tok;
 iter = json_read(&iter, &tok);
 ```
-
 The second parse function `json_parse` is for name + value pairs
-and uses the `json_read` function internally to read in two token.
+and uses the `json_read` function internally to read in two tokens.
 `json_parse` takes an iterator and a `json_pair` as arguments and
 returns the next iterator.
 
