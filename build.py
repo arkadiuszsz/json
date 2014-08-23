@@ -8,7 +8,8 @@ BIN_NAME    = "json"
 INCL_PATH   = ["~/usr/include/", "~/usr/include/x86_64-linux-gnu/"]
 LIB_PATH    = ["~/lib/", "~/usr/lib/", "~/usr/lib/x86_64-linux-gnu/"]
 
-RFLAGS      = ["-O3", "-Wall", "-Wextra", "-Werror", "-Wformat"]
+RFLAGS      = ["-O3", "-Wall", "-Wextra", "-Werror", "-Wformat",
+                "-fno-gcse"]
 DFLAGS      = ["-g", "-Wall", "-Wextra", "-Werror", "-Wformat",
                 "-Wunreachable-code", "-Winline", "-fstack-protector"]
 DLIBS       = ["m", "dl"]
