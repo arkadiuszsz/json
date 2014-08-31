@@ -52,14 +52,13 @@ To access the string in the token or token pair there are two utility functions.
 The first function `json_dup` takes a read token and returns a newly allocated
 string which contains the parsed string.
 ```c
-json_char *str = json_dub(&tok);
+json_char *str = json_dup(&tok);
 ```
 The second function `json_cpy` takes a read token and a buffer with a maximum
 size to copy into and returns the number of bytes that have been copied.
 ```c
 json_char buf[BUF_SIZ]
-int size = json_copy(buf, BUF_SIZ, &tok);
+int size = json_cpy(buf, BUF_SIZ, &tok);
 ```
-
 # License
     (The MIT License)
