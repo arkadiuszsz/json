@@ -11,7 +11,6 @@
 
 struct json_iter json_begin(const json_char* str, json_size len)
 {
-    assert(str && len);
     struct json_iter iter;
     memset(&iter, 0, sizeof iter);
     iter.src = str;
