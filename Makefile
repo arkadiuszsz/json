@@ -29,7 +29,7 @@ $(BIN): $(SRCS)
 
 # Misc
 clean:
-	rm -f $(OBJS)
+	rm -f bin/$(BIN) $(OBJS)
 
 all:
 	release
