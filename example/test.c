@@ -120,5 +120,6 @@ int main(void)
     test_utf8();
     test_array();
     test_sub();
+    exit(EXIT_SUCCESS);
 }
 

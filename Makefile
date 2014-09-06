@@ -6,18 +6,15 @@ CC = gcc
 DCC = clang
 
 #Flags
-CFLAGS = -fwrapv
 DFLAGS = -g -Wall -Wextra -Werror -Wformat -Wunreachable-code
 DFLAGS += -fstack-protector -Winline
-RFLAGS = -O3 -fno-gcse
+CFLAGS = -O3 -fno-gcse
 
 .PHONY: release
-release: CFLAGS += $(RFLAGS)
 release: $(BIN)
 
 .PHONY: debug
-debug: CFLAGS += $(DFLAGS)
-debug: CC = $(DCC)
+debug: CFLAGS = $(DFLAGS)
 debug: $(BIN)
 
 # Objects

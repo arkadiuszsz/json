@@ -7,7 +7,7 @@
 
 /* remove gcc warning for static init*/
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Winitializer-overrides"
+#pragma GCC diagnostic ignored "-Woverride-init"
 
 struct json_iter json_begin(const json_char* str, json_size len)
 {
@@ -237,3 +237,4 @@ int json_cpy(json_char *dst, json_size max, struct json_token* tok)
     return result;
 }
 
+#pragma GCC diagnostic pop
