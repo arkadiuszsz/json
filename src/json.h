@@ -12,7 +12,6 @@
 #define JSON_NAME 0
 #define JSON_VALUE 1
 
-struct json_token;
 typedef unsigned char json_char;
 typedef unsigned int json_size;
 
