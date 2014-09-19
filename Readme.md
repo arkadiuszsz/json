@@ -45,7 +45,7 @@ and uses the `json_read` function internally to read in two tokens.
 returns the next iterator.
 
 ```c
-struct json_pair pair ;
+json_pair pair ;
 iter = json_pair(&iter, pair);
 ```
 To access the string in the token or token pair there are two utility functions.
