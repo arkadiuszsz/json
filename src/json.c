@@ -9,7 +9,8 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Woverride-init"
 
-struct json_iter json_begin(const json_char* str, json_size len)
+struct json_iter
+json_begin(const json_char* str, json_size len)
 {
     struct json_iter iter;
     memset(&iter, 0, sizeof iter);
@@ -18,8 +19,8 @@ struct json_iter json_begin(const json_char* str, json_size len)
     return iter;
 }
 
-struct json_iter json_read(const struct json_iter* prev,
-                            struct json_token *obj)
+struct json_iter
+json_read(const struct json_iter* prev, struct json_token *obj)
 {
     static const void *go_struct[] = {
         [0 ... 255] = &&l_fail,
@@ -193,7 +194,8 @@ l_yield:
     return iter;
 }
 
-struct json_iter json_parse(const struct json_iter* it, json_pair p)
+struct json_iter
+json_parse(const struct json_iter* it, json_pair p)
 {
     struct json_iter next;
     next = json_read(it, &p[JSON_NAME]);
@@ -202,7 +204,8 @@ struct json_iter json_parse(const struct json_iter* it, json_pair p)
     return json_read(&next, &p[JSON_VALUE]);
 }
 
-json_char *json_dup(struct json_token* tok, void*(*alloc)(size_t))
+json_char*
+json_dup(struct json_token* tok, void*(*alloc)(size_t))
 {
     if (!alloc)
         return NULL;
@@ -216,7 +219,8 @@ json_char *json_dup(struct json_token* tok, void*(*alloc)(size_t))
     return str;
 }
 
-int json_cpy(json_char *dst, json_size max, struct json_token* tok)
+int
+json_cpy(json_char *dst, json_size max, struct json_token* tok)
 {
     if (!dst || !max || !tok)
         return -1;
