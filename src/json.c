@@ -207,7 +207,7 @@ json_parse(const struct json_iter* it, json_pair p)
 json_char*
 json_dup(struct json_token* tok, void*(*alloc)(size_t))
 {
-    if (!alloc)
+    if (!tok || !alloc)
         return NULL;
 
     json_char *str = alloc(tok->len + 1);
