@@ -33,5 +33,6 @@ struct json_iter json_read(const struct json_iter*, struct json_token*);
 struct json_iter json_parse(const struct json_iter*, json_pair);
 json_char *json_dup(struct json_token*, void*(*alloc)(size_t));
 int json_cpy(json_char *dst, json_size max, struct json_token*);
+int json_cmp(struct json_token* tok, const json_char* str);
 
 #endif
