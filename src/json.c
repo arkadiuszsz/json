@@ -242,7 +242,7 @@ json_cpy(json_char *dst, json_size max, struct json_token* tok)
 }
 
 int 
-json_cmp(struct json_token* tok, const json_char* str)
+json_cmp(const struct json_token* tok, const json_char* str)
 {
     if (!tok || !str)
         return 1;
