@@ -46,7 +46,7 @@ returns the next iterator.
 
 ```c
 json_pair pair ;
-iter = json_pair(&iter, pair);
+iter = json_parse(&iter, pair);
 ```
 To access the string in the token or token pair there are two utility functions.
 The first function `json_dup` takes a read token and returns a newly allocated
