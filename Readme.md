@@ -49,9 +49,11 @@ json_pair pair;
 iter = json_parse(&iter, pair);
 ```
 To access the string in the token or token pair there are three utility functions.
-The first function `json_dup` takes a read token and a allocator callback and returns a newly allocated string which contains the parsed string.
+The first function `json_dup` takes a read token and a allocator callback and
+returns a newly allocated string which contains the parsed string.
 ```c
-json_char *str = json_dup(&tok, malloc);
+json_char *str;
+str = json_dup(&tok, malloc);
 ```
 The second function `json_cpy` takes a read token and a buffer with a maximum
 size to copy into and returns the number of bytes that have been copied.
@@ -59,8 +61,8 @@ size to copy into and returns the number of bytes that have been copied.
 json_char buf[BUF_SIZ]
 int size = json_cpy(buf, BUF_SIZ, &tok);
 ```
-The last utitlity function `json_cmp` compares a token with a given string
-pointer and returns if the these two are equal.
+The last utitlity function is`json_cmp`. `json_cmp` compares a token with a given
+string pointer and returns if the these two are equal.
 ```c
 const json_char buf[] = "token";
 int eq = !json_cmp(&tok, buf);
