@@ -20,7 +20,7 @@ debug: CFLAGS = $(DFLAGS)
 debug: $(BIN)
 
 # Objects
-SRCS = src/json.c example/test.c
+SRCS = src/json.c test.c
 OBJS = $(SRCS: .c = .o)
 
 # Build

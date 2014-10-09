@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "../src/json.h"
+#include "src/json.h"
 
 static void test_str(void)
 {

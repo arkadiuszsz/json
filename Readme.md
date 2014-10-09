@@ -62,7 +62,7 @@ json_char buf[BUF_SIZ]
 int size = json_cpy(buf, BUF_SIZ, &tok);
 ```
 The last utitlity function is`json_cmp`. `json_cmp` compares a token with a given
-string pointer and returns if the these two are equal.
+string pointer and returns if these two are equal.
 ```c
 const json_char buf[] = "token";
 int eq = !json_cmp(&tok, buf);
