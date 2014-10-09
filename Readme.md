@@ -7,12 +7,11 @@ and pair(key,value), but deeper levels can be reached with the parsed output.
 
 ## Features
     - written in C
-    - fast
-    - tiny
-    - simple
+    - minimal (~250 loc)
     - no allocation
     - utf8 support
     - minimal validation
+    - ~250 loc
 
 ## Prerequisites
 To build and use the JSON parser you only need to drop the two
