@@ -36,11 +36,9 @@ int main(void)
 {
     test_section("str")
     {
-        const json_char *buf = (json_char*)"{\"name\"=\"value\"}";
-        json_size size = strlen((const char*)buf);
-
         struct json_iter iter;
-        iter = json_begin((json_char*)buf, size);
+        const json_char buf[] = "{\"name\"=\"value\"}";
+        iter = json_begin(buf, sizeof buf);
 
         json_pair pair;
         iter = json_parse(&iter, pair);
@@ -51,11 +49,9 @@ int main(void)
 
     test_section("num")
     {
-        const json_char *buf = (const json_char*)"{\"name\"=1234}";
-        const json_size size = strlen((const char*)buf);
-
         struct json_iter iter;
-        iter = json_begin((json_char*)buf, size);
+        const json_char buf[] = "{\"name\"=1234}";
+        iter = json_begin(buf, sizeof buf);
 
         json_pair pair;
         iter = json_parse(&iter, pair);
@@ -66,11 +62,9 @@ int main(void)
 
     test_section("utf8")
     {
-        const json_char *buf = (const json_char*)"{\"name\"=\"$¢€𤪤\"}";
-        const json_size size = strlen((const char*)buf);
-
         struct json_iter iter;
-        iter = json_begin((json_char*)buf, size);
+        const json_char buf[] = "{\"name\"=\"$¢€𤪤\"}";
+        iter = json_begin(buf, sizeof buf);
 
         json_pair pair;
         iter = json_parse(&iter, pair);
@@ -81,11 +75,9 @@ int main(void)
 
     test_section("array")
     {
-        const json_char *buf = (const json_char*)"{\"list\"=[1,2,3,4]}";
-        json_size size = strlen((const char*)buf);
-
         struct json_iter iter;
-        iter = json_begin((json_char*)buf, size);
+        const json_char buf[] = "{\"list\"=[1,2,3,4]}";
+        iter = json_begin(buf, sizeof buf);
 
         json_pair pair;
         iter = json_parse(&iter, pair);
@@ -93,12 +85,11 @@ int main(void)
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"list"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"[1,2,3,4]"));
 
-        struct json_token tok;
-        iter = json_begin(pair[1].str, pair[1].len);
-
         int i = 0;
-        const json_char* check = (const json_char*)"1234";
+        iter = json_begin(pair[1].str, pair[1].len);
+        const json_char check[] = "1234";
         do {
+            struct json_token tok;
             iter = json_read(&iter, &tok);
             test_assert(tok.str[0] == check[i++]);
         } while (!iter.err);
@@ -106,11 +97,9 @@ int main(void)
 
     test_section("sub")
     {
-        const json_char *buf = (const json_char*)"{\"sub\"={\"a\"=\"b\"}}";
-        json_size size = strlen((const char*)buf);
-
         struct json_iter iter;
-        iter = json_begin((json_char*)buf, size);
+        const json_char buf[] = "{\"sub\"={\"a\"=\"b\"}}";
+        iter = json_begin(buf, sizeof buf);
 
         json_pair pair;
         iter = json_parse(&iter, pair);
