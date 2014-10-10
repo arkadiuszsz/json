@@ -27,6 +27,7 @@ json_read(const struct json_iter* prev, struct json_token *obj)
         ['\t']      = &&l_loop,
         ['\r']      = &&l_loop,
         ['\n']      = &&l_loop,
+        [' ']      = &&l_loop,
         ['"']       = &&l_qup,
         [':']       = &&l_loop,
         ['=']       = &&l_loop,
@@ -241,7 +242,7 @@ json_cpy(json_char *dst, json_size max, struct json_token* tok)
     return result;
 }
 
-int 
+int
 json_cmp(const struct json_token* tok, const json_char* str)
 {
     if (!tok || !str)
