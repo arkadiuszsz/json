@@ -3,6 +3,8 @@
     vurtun <polygone@gmx.net>
     MIT license
 */
+#include <stdlib.h>
+#include <string.h>
 #include "json.h"
 
 /* remove gcc warning for static init*/
@@ -27,7 +29,7 @@ json_read(const struct json_iter* prev, struct json_token *obj)
         ['\t']      = &&l_loop,
         ['\r']      = &&l_loop,
         ['\n']      = &&l_loop,
-        [' ']      = &&l_loop,
+        [' ']       = &&l_loop,
         ['"']       = &&l_qup,
         [':']       = &&l_loop,
         ['=']       = &&l_loop,

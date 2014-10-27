@@ -6,9 +6,6 @@
 #ifndef JSON_H_
 #define JSON_H_
 
-#include <stdlib.h>
-#include <string.h>
-
 #define JSON_NAME 0
 #define JSON_VALUE 1
 
