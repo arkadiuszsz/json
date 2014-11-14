@@ -258,4 +258,32 @@ json_cmp(const struct json_token* tok, const json_char* str)
     return 0;
 }
 
+enum json_typ
+json_type(const struct json_token *tok)
+{
+    if (!tok || !tok->str || !tok->len)
+        return JSON_NONE;
+    if (tok->str[0] == '{') {
+        if (tok->str[tok->len] == '}')
+            return JSON_OBJECT;
+        else
+            return JSON_NONE;
+    }
+    if (tok->str[0] == '[') {
+        if (tok->str[tok->len] == ']')
+            return JSON_ARRAY;
+        else
+            return JSON_NONE;
+    }
+    if (!json_cmp(tok, (json_char*)"true"))
+        return JSON_TRUE;
+    if (!json_cmp(tok, (json_char*)"false"))
+        return JSON_FALSE;
+    if (!json_cmp(tok, (json_char*)"null"))
+        return JSON_NULL;
+    if ((tok->str[0] != '-') && ((tok->str[0] < '0') || (tok->str[0] > '9')))
+        return JSON_STRING;
+    return JSON_NUMBER;
+}
+
 #pragma GCC diagnostic pop

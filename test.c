@@ -45,6 +45,7 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"value"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_STRING);
     }
 
     test_section("num")
@@ -58,6 +59,7 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"1234"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_NUMBER);
     }
 
     test_section("utf8")
@@ -71,6 +73,7 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"$¢€𤪤"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_STRING);
     }
 
     test_section("map")
@@ -84,21 +87,25 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"name"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"test"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_STRING);
 
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"age"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"42"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_NUMBER);
 
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"utf8"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"äöü"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_STRING);
 
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"alive"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"true"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_TRUE);
     }
 
     test_section("array")
@@ -112,6 +119,7 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"list"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"[1,2,3,4]"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_ARRAY);
 
         int i = 0;
         iter = json_begin(pair[1].str, pair[1].len);
@@ -134,12 +142,14 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"sub"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"{\"a\"=\"b\"}"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_OBJECT);
 
         iter = json_begin(pair[1].str, pair[1].len);
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"a"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"b"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_STRING);
     }
 
     test_section("subarray")
@@ -153,12 +163,14 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"sub"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"{\"a\"=[1,2,3,4]}"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_OBJECT);
 
         iter = json_begin(pair[1].str, pair[1].len);
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"a"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"[1,2,3,4]"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_ARRAY);
 
         int i = 0;
         iter = json_begin(pair[1].str, pair[1].len);
@@ -181,11 +193,13 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"sub"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"{\"a\"=\"b\"}"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_OBJECT);
 
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"list"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"{\"c\"=\"d\"}"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_OBJECT);
     }
 
     test_section("table")
@@ -199,18 +213,20 @@ int main(void)
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"sub"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"{\"a\"= \"b\"}"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_OBJECT);
 
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"list"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"[1,2,3,4]"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_ARRAY);
 
         iter = json_parse(&iter, pair);
         test_assert(!iter.err);
         test_assert(!json_cmp(&pair[JSON_NAME], (json_char*)"a"));
         test_assert(!json_cmp(&pair[JSON_VALUE], (json_char*)"true"));
+        test_assert(json_type(&pair[JSON_VALUE]) == JSON_TRUE);
     }
-
     test_result();
     exit(EXIT_SUCCESS);
 }
