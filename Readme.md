@@ -68,7 +68,7 @@ int eq = !json_cmp(&tok, buf);
 `json_type` returns the type a given token, but as well as the main parsing
 function does not perform extensive validation of content.
 ```c
-const json_typ t = json_type(&tok);
+const enum json_typ t = json_type(&tok);
 ```
 
 # License
