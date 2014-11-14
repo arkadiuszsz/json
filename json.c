@@ -134,13 +134,13 @@ l_down:
 l_qup:
     iter.go = go_string;
     if (iter.depth == 1)
-        obj->str = cur + 1;
+        obj->str = cur;
     goto l_loop;
 
 l_qdown:
     iter.go = go_struct;
     if (iter.depth == 1) {
-        obj->len = cur - obj->str;
+        obj->len = (cur - obj->str);
         goto l_yield;
     }
     goto l_loop;
@@ -162,7 +162,7 @@ l_bare:
 l_unbare:
     iter.go = go_struct;
     if (iter.depth == 1) {
-        obj->len = cur - obj->str;
+        obj->len = (cur - obj->str);
         iter.src = cur;
         iter.len = len;
         return iter;
@@ -275,14 +275,18 @@ json_type(const struct json_token *tok)
         else
             return JSON_NONE;
     }
+    if (tok->str[0] == '\"') {
+        if (tok->str[tok->len] == '\"')
+            return JSON_STRING;
+        else
+            return JSON_NONE;
+    }
     if (!json_cmp(tok, (json_char*)"true"))
         return JSON_TRUE;
     if (!json_cmp(tok, (json_char*)"false"))
         return JSON_FALSE;
     if (!json_cmp(tok, (json_char*)"null"))
         return JSON_NULL;
-    if ((tok->str[0] != '-') && ((tok->str[0] < '0') || (tok->str[0] > '9')))
-        return JSON_STRING;
     return JSON_NUMBER;
 }
 
